@@ -11,34 +11,32 @@
     </div>
 </div>
 <div class="item">
-    <div>Nome</div>
+    <div>Título</div>
     <div>
-        <input type="text" name="name" placeholder="Digite o Título do Anúncio" value="{{ product.name }}"></div>
+        <input required type="text" name="name" placeholder="Digite o Título do Anúncio" value="{{ product.name }}"></div>
     </div>
 </div>
 <div class="item">
     <div>Descrição</div>
     <div>
-        <textarea name="description">
-            {{ product.description }}
-        </textarea>
+        <textarea required name="description">{{ product.description }}</textarea>
     </div>
 </div>
 {# Campo de Foto #}
 <div class="item">
     <div>Valor</div>
     <div>
-        <input type="text" name="price" placeholder="Preço do Produto" value="{{ product.price }}"></div>
+        <input required type="text" name="price" placeholder="Preço do Produto" value="{{ product.price }}"onkeydown="Mask.apply(this, 'formatBRL')"></div>
         {# mascara de dinheiro #}
     </div>
     {% if product.old.price %}
-        <input type="hidden" name="old_price" value={{ product.old_price }}>
+        <input required type="hidden" name="old_price" value={{ product.old_price }}>
         {% endif %}
     </div>
     <div class="item">
     <div>Quantidade</div>
     <div>
-        <input type="number" name="quantity" placeholder="Estoque Disponível" value="{{ product.quantity }}"></div>
+        <input required type="number" name="quantity" placeholder="Estoque Disponível" value="{{ product.quantity }}"></div>
     </div>
 </div>
 {% if product.status %}
@@ -55,3 +53,4 @@
             </div>
         </div>
         {% endif %}
+   

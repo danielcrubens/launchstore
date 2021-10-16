@@ -135,7 +135,7 @@ form .item > div:nth-child(1) {
   font-weight: bold;
   margin-bottom: 8px;
 }
-form .item input [type="text"],
+form .item input[type="text"],
 form .item input[type="number"],
 form .item textarea,
 form .item select {
