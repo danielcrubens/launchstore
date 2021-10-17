@@ -14,8 +14,9 @@ html {
   --preto: #000000;
   --branco: #ffffff;
   --laranja: #fd951f;
-  --azul: #1fd4fd;
+  --azul: #1f83fd;
   --cinza: #777;
+  --vermelho:#FC2E20;
 }
 html,
 body {
@@ -48,6 +49,12 @@ body {
 }
 .button:hover{
   filter: brightness(0.8);
+}
+.button.edit{
+  background: var(--azul);
+}
+.button.delete{
+  background: var(--vermelho);
 }
 /* HEADER */
 header,
@@ -161,7 +168,18 @@ form .item select {
 form .item textarea{
   min-height: 150px;
 }
-
+ form .item span{
+   padding: 8px 16px;
+   background-color: var(--laranja);
+   border-radius: 16px;
+   color: var(--branco);
+   margin-right: 4px;
+   margin-top: 8px;
+   display: inline-block;
+   font-weight: bold;
+   text-transform: uppercase;
+   font-size: 12px;
+ }
 form .fields{
   margin-bottom: 64px;
 }
