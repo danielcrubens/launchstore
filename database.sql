@@ -1,6 +1,6 @@
 CREATE TABLE "products" (
   "id" SERIAL PRIMARY KEY,
-  "category_id" int NOTNULL ,
+  "category_id" int NOT NULL ,
   "user_id" int ,
   "name" text NOT NULL,
   "description" text NOT NULL,

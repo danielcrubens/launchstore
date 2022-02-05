@@ -1,4 +1,5 @@
-const db = require("../../config/db");
+const db = require("../../config/db")
+
 module.exports = {
   create(data) {
     const query = `
@@ -13,9 +14,9 @@ module.exports = {
             status
         ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
         RETURNING id
-    `;
+    `
     //R$ 1,00
-    data.price = data.price.replace(/\D/g, "");
+    data.price = data.price.replace(/\D/g,"")
     //100
     const values = [
       data.category_id,
@@ -28,11 +29,13 @@ module.exports = {
       data.status || 1,
     ];
 
-    return db.query(query, values);
+    return db.query(query, values)
   },
+
   find(id) {
-    return db.query("SELECT * FROM products WHERE id = $1", [id]);
+    return db.query('SELECT * FROM products WHERE id = $1', [id])
   },
+
   update(data) {
     const query = `
 UPDATE products SET
@@ -45,7 +48,7 @@ price=($6),
 quantity=($7),
 status=($8)
 WHERE id = $9
-`;
+`
     const values = [
       data.category_id,
       data.user_id,
@@ -55,11 +58,12 @@ WHERE id = $9
       data.price,
       data.quantity,
       data.status,
-      data.id,
+      data.id
     ];
-    return db.query(query, values);
+    return db.query(query, values)
   },
+  
   delete(id) {
-    return db.query("DELETE FROM products WHERE id = $1",[id]);
+    return db.query("DELETE FROM products WHERE id = $1",[id])
   },
-};
+}
