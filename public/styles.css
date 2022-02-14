@@ -16,6 +16,8 @@ html {
     --laranja: #fd951f;
     --azul: #1f83fd;
     --cinza: #777;
+    --cinza1:#333;
+    --cinza2:#888;
     --vermelho: #fc2e20;
 }
 
@@ -27,12 +29,17 @@ body {
 body {
     font-family: "Roboto", sans-serif;
     background: var(--gelo);
+    display: flex;
+    flex-direction: column;
 }
 
 .container {
     width: 90%;
     margin: 0 auto;
     max-width: 940px;
+}
+footer{
+    margin-top: auto;
 }
 
 .button {
@@ -64,7 +71,6 @@ body {
     background: var(--vermelho);
 }
 
-
 /* HEADER */
 
 header,
@@ -87,7 +93,6 @@ header div.container a {
     justify-self: start;
 }
 
-
 /* LOGO */
 
 .logo h1 {
@@ -103,7 +108,6 @@ header div.container a {
     letter-spacing: 2px;
 }
 
-
 /*HEADER SEARCH */
 
 .search input {
@@ -112,7 +116,6 @@ header div.container a {
     border-radius: 2px;
     font-size: 16px;
 }
-
 
 /* PRIMARY MENU */
 
@@ -135,7 +138,6 @@ nav.primary ul li a:hover {
 .nav.primary ul li a i {
     margin-right: 8px;
 }
-
 
 /*  PRODUCTS FORM */
 
@@ -164,7 +166,7 @@ form .item {
     margin-bottom: 16px;
 }
 
-form .item>div:nth-child(1) {
+form .item > div:nth-child(1) {
     color: var(--cinza);
     text-transform: uppercase;
     font-size: 14px;
@@ -190,7 +192,8 @@ form .item select {
     appearance: none;
     background: var(--branco);
     background-color: #fff;
-    background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23007CB2%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E"), linear-gradient(to bottom, var(--branco) 0%, #e5e5e5 100%);
+    background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23007CB2%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E"),
+        linear-gradient(to bottom, var(--branco) 0%, #e5e5e5 100%);
     background-repeat: no-repeat;
     background-position: right 0.7em top 50%, 0 0;
     background-size: 0.65em auto, 100%;
@@ -216,7 +219,6 @@ form .item span {
     text-transform: uppercase;
     font-size: 12px;
 }
-
 
 /* FOTOS UPLOAD */
 
@@ -274,7 +276,7 @@ form .item #photos-preview img {
     position: absolute;
     top: 0;
     left: 0;
-    background:rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.8);
     color: var(--vermelho);
     width: 100%;
     height: 100%;
@@ -289,4 +291,63 @@ form .item #photos-preview img {
 
 #photos-preview .photo:hover i {
     opacity: 1;
+}
+/* PRODUCT VIEW */
+.product-single {
+    background: var(--branco);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 24px;
+    padding: 32px 24px;
+    margin: 32px auto;
+    box-shadow: 2px 2px 2px -4px rgba(63, 63, 63, .9);
+    border: 1px solid var(--branco);
+    border-radius: 5px;
+}
+.product-single .galley img{
+    width: 100%;
+}
+/* PRODUCT SINGLE INFO */
+.product-single .info{
+    display: grid;
+    grid-template-rows:  auto 40px 2fr 1fr;
+}
+.product-single .info h1{
+    font-size: 32px;
+    line-height: 42px;
+    color:var(--cinza1);
+    text-transform: uppercase;
+}
+.product-single .info .published{
+    color:var(--cinza2);
+    font-size: 12px;
+    line-height: 22px;
+    letter-spacing:0.4px ;
+}
+/* price-buy */
+.product-single .price-buy{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 8px;
+    border-top: 1px solid #eee;
+}
+.product-single .price-buy .price{
+    font-size: 24px;
+    color: #333;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+}
+.product-single .price-buy .price .old{
+    text-decoration: line-through;
+    color: #999;
+    font-size: 14px;
+    font-weight: normal;
+    margin-left: 8px;
+}
+.product-single .price-buy  .buy button{
+    background-color: var(--azul);
+    font-size: 14px;
+    letter-spacing: .4px;
 }
