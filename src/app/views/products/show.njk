@@ -5,22 +5,30 @@
             <img src="https://via.placeholder.com/500" alt=""/>
         </div>
         <div class="info">
-            <h1>Computador</h1>
+            <h1>{{product.name}}</h1>
             <div class="published">
-                Publicado em 18/12 ás 21h
+                Publicado em {{ product.day }} às {{product.hour }}
             </div>
             <div class="description">
-                cdjsncjknsjnck
+                {{product.description}}
             </div>
             <div class="price-buy">
                 <div class="price">
-                    R$99,99
-                    <span class="old">  R$89,99</span>
+                    {{product.price}}
+                    {% if product.price !== product.oldPrice %}
+                        <span class="old">{{ product.oldPrice }}</span>
+                    {% endif %}
                 </div>
                 <div class="buy">
-                    <button class="button">Comprar</button>
+                    {% if product.status == 0 %}
+                        <p class="unavailable">Idisponível</p>
+                        {% elseif product.quantity == 0 %}
+                        <p class="unavailable">Fora de Estoque</p>
+                        {% else%}
+                        <button class="button">Comprar</button>
+                           {%endif%}
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
-{% endblock content %}
+        </section>
+    {% endblock content %}
