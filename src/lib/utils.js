@@ -15,7 +15,7 @@ module.exports = {
       iso: `${year}-${month}-${day}`,
       birthDay: `${day}/${month}`,
       format: `${day}/${month}/${year}`,
-    };
+    }
   },
   formatPrice(price){
     

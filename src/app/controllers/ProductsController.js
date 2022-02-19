@@ -1,4 +1,4 @@
-const { formatPrice , data, date } = require("../../lib/utils")
+const { formatPrice, date } = require("../../lib/utils")
 const Category = require("../models/Category")
 const Product = require("../models/Product")
 const File = require("../models/File")
@@ -26,7 +26,7 @@ module.exports = {
       }
     }
     if (req.files.length == 0)
-      return res.send("Please, send at least one image"); 
+      return res.send("Please, send at least one image");
 
     let results = await Product.create(req.body)
     const productId = results.rows[0].id
@@ -34,23 +34,31 @@ module.exports = {
     await Promise.all(filesPromise)
     return res.redirect(`/products/${productId}/edit`)
   },
-  async show(req,res){
+  async show(req, res) {
     let results = await Product.find(req.params.id)
     const product = results.rows[0]
 
-    if(!product) return res,send("Product Not Found!")
+    if (!product) return res.send("Product Not Found!")
 
-    const {day, hour, minutes, month}=  date(product.update_at)
-    product.published={
-      day:`${day}/${month}`,
+    const { day, hour, minutes, month } = date(product.update_at)
+    product.published = {
+      day: `${day}/${month}`,
       hour: `${hour}h${minutes}`,
-     
+
     }
 
     product.oldPrice = formatPrice(product.old_price)
     product.price = formatPrice(product.price)
 
-    return res.render("products/show",{product})
+    results = await Product.files(product.id)
+    const files = results.rows.map(file => ({
+      ...file,
+      src: `${req.protocol}://${req.headers.host}${file.path.replace("public", "")}`
+    }))
+
+
+
+    return res.render("products/show", { product, files })
   },
 
   async edit(req, res) {
@@ -68,9 +76,9 @@ module.exports = {
     //get images
     results = await Product.files(product.id)
     let files = results.rows
-    files = files.map(file=>({
-      ...file, 
-      src:`${req.protocol}://${req.headers.host}${file.path.replace("public","")}`
+    files = files.map(file => ({
+      ...file,
+      src: `${req.protocol}://${req.headers.host}${file.path.replace("public", "")}`
     }))
 
 
@@ -87,16 +95,16 @@ module.exports = {
       }
     }
 
-    if(req.files.length != 0){
+    if (req.files.length != 0) {
       const newFilesPromise = req.files.map(file =>
-        File.create({...file, product_id: req.body.id}))
-        await Promise.all(newFilesPromise)
+        File.create({ ...file, product_id: req.body.id }))
+      await Promise.all(newFilesPromise)
     }
 
-    if(req.body.removed_files){
+    if (req.body.removed_files) {
       const removedFiles = req.body.removed_files.split(",")// [1,2,3,]
-      const lastIndex = removedFiles.length -1
-      removedFiles.splice(lastIndex,1) // [1,2,3]
+      const lastIndex = removedFiles.length - 1
+      removedFiles.splice(lastIndex, 1) // [1,2,3]
       const removedFilesPromise = removedFiles.map(id => File.delete(id))
       await Promise.all(removedFilesPromise)
     }
