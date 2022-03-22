@@ -4,7 +4,7 @@ const multer = require('./app/middlewares/multer')
 const ProductController = require("./app/controllers/ProductsController")
 
 routes.get("/", function (req, res) {
-  return res.render("layout.njk");
+  return res.render("home/index.njk");
 });
 
 routes.get("/products/create", ProductController.create)
