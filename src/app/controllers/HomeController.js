@@ -20,7 +20,8 @@ module.exports = {
         product.oldPrice = formatPrice(product.old_price)
         product.price = formatPrice(product.price)
         return product
-    })
+    }).filter ((product, index) => index > 2 ? false : true)
+
     const lastAdded = await Promise.all(productsPromise)
     return res.render("home/index",{products:lastAdded})
     }
