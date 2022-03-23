@@ -421,3 +421,15 @@ transition: 400ms;
     letter-spacing: .4px;
 }
 
+/* SHOP */
+.shop h2{
+    margin: 48px;
+}
+.shop .items{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 32px;
+}
+.shop .product{
+    display: grid;
+}
