@@ -423,7 +423,7 @@ transition: 400ms;
 
 /* SHOP */
 .shop h2{
-    margin: 48px;
+    margin: 48px 0;
 }
 .shop .items{
     display: grid;
@@ -432,4 +432,28 @@ transition: 400ms;
 }
 .shop .product{
     display: grid;
+}
+.shop .product .image{
+    padding-top: 56.25%;
+    background-size:cover;
+    background-position: center center;
+    background-repeat: repeat;
+}
+.shop .items h4 {
+    margin: 8px 0;
+    font-weight: 300;
+    color: #999;
+}
+.shop .items p{
+    color: #101010;
+    font-weight: 700;
+    margin-top: 8px;
+    font-size: 24px;
+}
+.shop .product .old-price{
+    padding: 0;
+    margin: 4px 0;
+    font-size: 14px;
+    color: #999;
+    text-decoration: line-through;
 }
