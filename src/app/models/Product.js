@@ -79,23 +79,21 @@ WHERE id = $9
     `, [id])
   },
   search(params) {
-    const { filer, category } = params
-    let query = ""
-    filterQuery = `WHERE`
+    const { filter, category } = params
+    let query = "",
+      filterQuery = `WHERE`
 
     if (category) {
       filterQuery = `${filterQuery}
-products.category_id = ${category_id}
-AND`
+    products.category_id = ${category}
+    AND`
     }
 
     filterQuery = `
     ${filterQuery}
     products.name ilike '%${filter}%'
-    OR products.description ilike '%${filters}%'
+    OR products.description ilike '%${filter}%'
     `
-
-  
 
     query = `
     SELECT products.*,
@@ -103,9 +101,10 @@ AND`
     FROM products
     LEFT JOIN categories ON (categories.id = products.category_id)
     ${filterQuery}
-    GROUP BY  categories.name
+
     
     `
     return db.query(query)
   }
+
 }
