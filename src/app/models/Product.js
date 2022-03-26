@@ -1,7 +1,7 @@
 const db = require("../../config/db")
 
 module.exports = {
-  all(){
+  all() {
     return db.query(`
     SELECT * FROM products
     ORDER BY updated_at DESC
@@ -22,7 +22,7 @@ module.exports = {
         RETURNING id
     `
     //R$ 1,00
-    data.price = data.price.replace(/\D/g,"")
+    data.price = data.price.replace(/\D/g, "")
     //100
     const values = [
       data.category_id,
@@ -68,14 +68,44 @@ WHERE id = $9
     ];
     return db.query(query, values)
   },
-  
+
   delete(id) {
-    return db.query("DELETE FROM products WHERE id = $1",[id])
+    return db.query("DELETE FROM products WHERE id = $1", [id])
   },
-  files(id){
+  files(id) {
     return db.query(`
     SELECT * FROM files WHERE product_id =$1
     
-    `,[id])
+    `, [id])
+  },
+  search(params) {
+    const { filer, category } = params
+    let query = ""
+    filterQuery = `WHERE`
+
+    if (category) {
+      filterQuery = `${filterQuery}
+products.category_id = ${category_id}
+AND`
+    }
+
+    filterQuery = `
+    ${filterQuery}
+    products.name ilike '%${filter}%'
+    OR products.description ilike '%${filters}%'
+    `
+
+  
+
+    query = `
+    SELECT products.*,
+    categories.name AS category_name
+    FROM products
+    LEFT JOIN categories ON (categories.id = products.category_id)
+    ${filterQuery}
+    GROUP BY  categories.name
+    
+    `
+    return db.query(query)
   }
 }
