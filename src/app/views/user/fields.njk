@@ -2,19 +2,19 @@
 <div class="item">
     <div>Nome Completo</div>
     <div class="input">
-        <input required type="text" name="name" placeholder="Digite seu nome completo" value="{{ user.name }}"></div>
+        <input required type="text" name="name" placeholder="Digite seu nome completo" value="{{user.name}}"></div>
     </div>
 </div>
 <div class="item">
     <div>E-mail</div>
     <div class="input">
-        <input required type="email" name="email" placeholder="Digite seu e-mail" value="{{ user.email }}"></div>
+        <input required type="email" name="email" placeholder="Digite seu e-mail" value="{{user.email}}"></div>
     </div>
 </div>
 <div class="item">
     <div>Senha</div>
     <div class="input">
-        <input required type="password" name="password" placeholder="Escolha uma senha segura" value="{{ user.password }}"></div>
+        <input required type="password" name="password" placeholder="Escolha uma senha segura" value="{{user.password}}"></div>
     </div>
 </div>
 {%if not user.id%}
@@ -28,19 +28,20 @@
 <div class="item">
     <div>CPF ou CNPJ</div>
     <div class="input">
-        <input required type="text" name="cpf_cnpj" placeholder="Digite seu documento" value="{{ user.cpf_cnpj }}"></div>
+        <input required type="text" name="cpf_cnpj" placeholder="Digite seu documento" value="{{ user.cpf_cnpj }}" onkeydown="Mask.apply(this,'cpfCnpj')" onblur="Validate.apply(this, 'isCpfCnpj')"></div>
     </div>
 </div>
 <div class="item">
     <div>CEP</div>
     <div class="input">
-        <input required type="text" name="cep" placeholder="9999-999" value="{{ user.cep }}"></div>
+        <input required type="text" name="cep" placeholder="9999-999" value="{{user.cep}}"onkeydown="Mask.apply(this, 'cep')"
+      onblur="Validate.apply(this, 'isCep')"></div>
     </div>
 </div>
 <div class="item">
     <div>Endereço completo</div>
     <div class="input">
-        <input required type="text" name="address" placeholder="Digite seu endereço completo" value="{{ user.address }}"></div>
+        <input required type="text" name="address" placeholder="Digite seu endereço completo" value="{{user.address}}"></div>
     </div>
 </div>
 
