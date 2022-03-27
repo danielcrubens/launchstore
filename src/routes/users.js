@@ -17,10 +17,10 @@ routes.post('/forgot-password', SessionController.forgot)
 routes.post('/password-reset', SessionController.reset) */
 
 // user register UserController
-/* routes.get('/register', UserController.registerForm)
-routes.post('/register', UserController.post) */
+routes.get('/register', UserController.registerForm)
+/* routes.post('/register', UserController.post)
 
-/* routes.get('/register', UserController.show)
+routes.get('/register', UserController.show)
 routes.put('/register', UserController.update)
 routes.delete('/register', UserController.delete) */
 
