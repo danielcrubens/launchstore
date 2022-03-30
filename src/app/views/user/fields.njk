@@ -8,7 +8,7 @@
 <div class="item">
     <div>E-mail</div>
     <div class="input">
-        <input required type="email" name="email" placeholder="Digite seu e-mail" value="{{user.email}}"></div>
+        <input required type="email" name="email" placeholder="Digite seu e-mail" value="{{user.email}}" onblur="Validate.apply(this, 'isEmail')"></div>
     </div>
 </div>
 <div class="item">

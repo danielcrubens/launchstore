@@ -12,43 +12,42 @@ const Mask = {
             currency: "BRL",
         }).format(value / 100);
     },
-    cpfCnpj(value){
+    cpfCnpj(value) {
         value = value.replace(/\D/g, "")
 
-        if(value.length>14)
-        value = value.slice(0,-1)
+        if (value.length > 14)
+            value = value.slice(0, -1)
 
-     // check if cnpj - 11.222.333/0001-11
-     if (value.length > 11) {
-        if (value.length > 14) value = value.slice(0, -1);
-  
-        value = value.replace(/(\d{2})(\d)/, '$1.$2');
-        value = value.replace(/(\d{3})(\d)/, '$1.$2');
-        value = value.replace(/(\d{3})(\d)/, '$1/$2');
-        value = value.replace(/(\d{4})(\d)/, '$1-$2');
-      } else {
-        // cpf 111.222.333-44
-        value = value.replace(/(\d{3})(\d)/, '$1.$2');
-        value = value.replace(/(\d{3})(\d)/, '$1.$2');
-        value = value.replace(/(\d{3})(\d)/, '$1-$2');
-      }
-      return value;
+        // check if cnpj - 11.222.333/0001-11
+        if (value.length > 11) {
+            if (value.length > 14) value = value.slice(0, -1);
+
+            value = value.replace(/(\d{2})(\d)/, '$1.$2');
+            value = value.replace(/(\d{3})(\d)/, '$1.$2');
+            value = value.replace(/(\d{3})(\d)/, '$1/$2');
+            value = value.replace(/(\d{4})(\d)/, '$1-$2');
+        } else {
+            // cpf 111.222.333-44
+            value = value.replace(/(\d{3})(\d)/, '$1.$2');
+            value = value.replace(/(\d{3})(\d)/, '$1.$2');
+            value = value.replace(/(\d{3})(\d)/, '$1-$2');
+        }
+        return value;
     },
 
     cep(value) {
         value = value.replace(/\D/g, '');
-        if(value.length>8)
+        if (value.length > 8)
 
-        value = value.slice(0,-1)
-    
+            value = value.slice(0, -1)
+
         if (value.length > 8) value = value.slice(0, -1);
-    
-        value = value.replace(/(\d{5})(\d)/, '$1-$2');
-    
-        return value;
-      }
-};
 
+        value = value.replace(/(\d{5})(\d)/, '$1-$2');
+
+        return value;
+    }
+};
 /* LÓGICA LIMITE MAXIMO DE ENVIO DE FOTOS */
 const PhotosUpload = {
     input: '',
@@ -148,11 +147,11 @@ const PhotosUpload = {
     }
 };
 /* FUNCIONALIDADE DA GALERIA DE IMAGENS */
-const ImageGallery ={
+const ImageGallery = {
     highlight: document.querySelector('.gallery .highlight > img'),
     previews: document.querySelectorAll('gallery-preview img'),
-    setImage(e){
-        const {target}= e
+    setImage(e) {
+        const { target } = e
         ImageGallery.previews.forEach(preview => preview.classList.remove('active'))
         target.classList.add('active')
         ImageGallery.highlight.src = target.src
@@ -165,15 +164,49 @@ const Lightbox = {
     image: document.querySelector('.lightbox-target img'),
     closeButton: document.querySelector('.lightbox-target a.lightbox-close'),
     open() {
-      Lightbox.target.style.opacity = 1;
-      Lightbox.target.style.top = 0;
-      Lightbox.target.style.bottom = 0;
-      Lightbox.closeButton.style.top = 0;
+        Lightbox.target.style.opacity = 1;
+        Lightbox.target.style.top = 0;
+        Lightbox.target.style.bottom = 0;
+        Lightbox.closeButton.style.top = 0;
     },
     close() {
-      Lightbox.target.style.opacity = 0;
-      Lightbox.target.style.top = '-100%';
-      Lightbox.target.style.bottom = 'initial';
-      Lightbox.closeButton.style.top = '-80px';
+        Lightbox.target.style.opacity = 0;
+        Lightbox.target.style.top = '-100%';
+        Lightbox.target.style.bottom = 'initial';
+        Lightbox.closeButton.style.top = '-80px';
+    }
+};
+/* VALIDAÇÃO EMAIL */
+const Validate = {
+    apply(input, func) {
+      Validate.clearErrors(input);
+  
+      let results = Validate[func](input.value);
+      input.value = results.value;
+  
+      if (results.error) Validate.displayError(input, results.error);
+    },
+    displayError(input, error) {
+      const div = document.createElement('div');
+      div.classList.add('error');
+      div.innerHTML = error;
+      input.parentNode.appendChild(div);
+  
+      input.focus();
+    },
+    clearErrors(input) {
+      const errorDiv = input.parentNode.querySelector('.error');
+      if (errorDiv) errorDiv.remove();
+    },
+    isEmail(value) {
+      let error = null;
+      const mailFormat = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
+  
+      if (!value.match(mailFormat)) error = 'Email inválido';
+  
+      return {
+        error,
+        value
+      };
     }
   };
