@@ -17,7 +17,10 @@ async function post(req,res, next){
       where: { email },
       or: { cpf_cnpj }
   })
-  if(user) return res.send('Users exists')
+  if(user) return res.render('user/register',{
+      user: req.body,
+      error:"Usuário já cadastrado."
+  })
           //check if password match
   if(password != passwordRepeat)
   return res.send('Password Mismatch')
