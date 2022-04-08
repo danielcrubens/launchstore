@@ -19,7 +19,7 @@ async function post(req,res, next){
   })
   if(user) return res.render('user/register',{
       user: req.body,
-      error:"Usuário já cadastrado."
+      error:'Usuário já cadastrado.'
   })
           //check if password match
   if(password != passwordRepeat)
