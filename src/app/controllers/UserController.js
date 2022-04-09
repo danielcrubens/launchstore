@@ -1,12 +1,16 @@
+const { redirect } = require('express/lib/response')
 const User = require('../models/User')
 module.exports = {
     registerForm(req, res) {
         return res.render("user/register")
     },
+    show(req, res) {
+        return res.send('Ok, cadastrado!')
+    },
     async post(req, res) {
-       
-        return res.send('passed!')
+        const userId = await User.create(req.body)
+        return redirect('/users')
 
-     
- }
+
+    }
 }

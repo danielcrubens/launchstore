@@ -25,11 +25,11 @@ async function post(req, res, next) {
         error: 'Usuário já cadastrado.'
     })
     //check if password match
-    if (password != passwordRepeat) 
-    return res.render('user/register', {
-        user: req.body,
-        error: 'A senha e a repetição da senha estão incorretas.'
-    })
+    if (password != passwordRepeat)
+        return res.render('user/register', {
+            user: req.body,
+            error: 'A senha e a repetição da senha estão incorretas.'
+        })
     next()
 }
 module.exports = {
