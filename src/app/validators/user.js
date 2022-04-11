@@ -70,7 +70,7 @@ async function update(req, res, next) {
 
  if(!passed) return res.render("user/index",{
      user: req.body,
-     error:"Senhas incorreta."
+     error:"Senhas incorreta!"
  })
  req.user = user
  next()
