@@ -1,4 +1,4 @@
-const { redirect } = require('express/lib/response')
+/* const { redirect } = require('express/lib/response') */
 const User = require('../models/User')
 module.exports = {
     registerForm(req, res) {
@@ -9,7 +9,9 @@ module.exports = {
     },
     async post(req, res) {
         const userId = await User.create(req.body)
-        return redirect('/users')
+        req.session.userId = userId
+        
+        return res.redirect('/users')
 
 
     }

@@ -1,9 +1,9 @@
-const { default: filters } = require("nunjucks/src/filters")
+/* const { default: filters } = require("nunjucks/src/filters") */
 const db = require("../../config/db")
 const { hash } = require('bcryptjs')
 
 module.exports = {
-    async findOne() {
+    async findOne(filters) {
         let query = "SELECT * FROM users"
 
         Object.keys(filters).map(key => {
