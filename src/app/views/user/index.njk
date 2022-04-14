@@ -7,11 +7,15 @@
             </div>
             <div class="fields">
                 {% include 'user/fields.njk' %}
-                <input type="hidden" name="id" value="{{ user.id }}"></div>
+                <input type="hidden" 
+                name="id" 
+                value={{user.id}}
+                >
+                </div>
                 <button class="button edit" type="submit">Atualizar</button>
             </form>
-            <form id="form-delete" action="/users?_method=DELETE" method="post">
-                <input type="hidden" name="id" value={{ user.id }}>
+            <form id="form-delete" action="/users?_method=DELETE" method="POST">
+                <input type="hidden" name="id" value={{user.id}}>
                     <button class="button delete" type="submit">Deletar</button>
                 </form>
             </section>

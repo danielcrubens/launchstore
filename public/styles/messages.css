@@ -19,5 +19,5 @@
     background: var(--vermelho);
 }
 .messages.success{
-    background: var(--verde);
+    background: green;
 }

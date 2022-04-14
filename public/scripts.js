@@ -36,16 +36,13 @@ const Mask = {
     },
 
     cep(value) {
-        value = value.replace(/\D/g, '');
+        value = value.replace(/\D/g, "")
+        
         if (value.length > 8)
-
             value = value.slice(0, -1)
+        value = value.replace(/(\d{5})(\d)/, '$1-$2')
 
-        if (value.length > 8) value = value.slice(0, -1);
-
-        value = value.replace(/(\d{5})(\d)/, '$1-$2');
-
-        return value;
+        return value
     }
 };
 /* LÓGICA LIMITE MAXIMO DE ENVIO DE FOTOS */
@@ -214,29 +211,29 @@ const Validate = {
         const cleanValues = value.replace(/\D/g, "")
         if (cleanValues.length > 11 && cleanValues.length !== 14) {
             error = "CNPJ incorreto"
-        } 
-        else if (cleanValues.length < 12 && cleanValues.length !==11){
+        }
+        else if (cleanValues.length < 12 && cleanValues.length !== 11) {
             error = "CPF incorreto"
         }
 
-            return {
-                error,
-                value
-            };
+        return {
+            error,
+            value
+        };
     },
     isCep(value) {
-     let error = null
-     const cleanValues = value.replace(/\D/g, "")
-     if (cleanValues.length !== 8) {
-        error = "CEP incorreto"
-    } 
+        let error = null
+        const cleanValues = value.replace(/\D/g, "")
+        if (cleanValues.length !== 8) {
+            error = "CEP incorreto"
+        }
 
 
-     
-     return {
-        error,
-        value
-    };
-      }
+
+        return {
+            error,
+            value
+        };
+    }
 
 };
