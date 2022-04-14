@@ -6,8 +6,9 @@
                 <h2>COMPRA E VENDA</h2>
             </div>
         </a>
-        <form class="search" method="GET" action="/products/search">
-            <input type="text" name="filter" placeholder="Buscar por Produtos" {% if search.term %} value={{ serach.term }} {% endif %}></form>
+         <form class="search" method="GET" action="/products/search">
+            <input type="text" name="filter" placeholder="Buscar por Produtos" {% if search.term %} value={{serach.term}} {% endif%}>
+        </form>
             <nav class="primary">
                 <ul>
                     <li>
@@ -22,23 +23,22 @@
                             Minha Conta
                         </a>
                         {%if user%}
-                        <ul class="submenu">
-                            <li>
-                                <a href="/users">Configurações</a>
-                            </li>
-                            <li>
-                                <a href="/buying">Meus pedidos</a>
-                            </li>
-                            <li>
-                                <a href="/selling">Minhas vendas</a>
-                            </li>
-                            <li>
-                                <form action="/users/logout" method="POST">
-                                <button>Sair</button>
-                                
-                                </form>
-                            </li>
-                        </ul>
+                            <ul class="submenu">
+                                <li>
+                                    <a href="/users">Configurações</a>
+                                </li>
+                                <li>
+                                    <a href="/buying">Meus pedidos</a>
+                                </li>
+                                <li>
+                                    <a href="/selling">Minhas vendas</a>
+                                </li>
+                                <li>
+                                    <form action="/users/logout" method="POST">
+                                        <button>Sair</button>
+                                    </form>
+                                </li>
+                            </ul>
                         {%endif%}
                     </li>
                 </ul>
