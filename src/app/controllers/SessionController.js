@@ -1,4 +1,5 @@
-
+const crypto = require('crypto')
+const User = require('../models/User')
 module.exports = {
     loginForm(req,res){
         return res.render("session/login")
@@ -16,6 +17,16 @@ module.exports = {
     },
 
     forgot(req, res){
-        
+         const user = req.user
+        //um token para esse usuário
+        const token =  crypto.randomBytes(20).toLocaleString("hex")
+        //criar ema expiração
+        let now = new Date()
+        now = now.setHours(now.getHours()+1)
+        await  User.update(user.id,{
+            reset_token: token,
+            reset_token_expires:now
+        })
+
     }
 }
