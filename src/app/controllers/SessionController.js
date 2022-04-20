@@ -16,9 +16,8 @@ module.exports = {
     forgotForm(req, res) {
         return res.render("session/forgot-password")
     },
-
     async forgot(req, res) {
-
+        const user = req.user
         try{
 
         }catch(err){
@@ -27,9 +26,9 @@ module.exports = {
                 error: "Erro inesperado, tente novamente"
             })
         }
-        const user = req.user
+    
         //um token para esse usuário
-        const token = crypto.randomBytes(20).toLocaleString("hex")
+        const token = crypto.randomBytes(20).toString("hex")
         //criar ema expiração
         let now = new Date()
         now = now.setHours(now.getHours() + 1)
@@ -49,7 +48,7 @@ module.exports = {
             RECUPERAR SENHA
             <a/>
             
-            `
+            `,
         })
         //avisar o usuário que enviamos o email
         return res.render("session/forgot-password",{
@@ -57,10 +56,11 @@ module.exports = {
         })
 
     },
+
     resetForm(req,res){
         return res.render("session/password-reset",{token:req.query.token})
     },
-    reset(req,res){
+     reset(req,res){
         const {email, paassword,paasswordRepeat, token} = req.body
         try{
 //procuras usuário
@@ -72,5 +72,5 @@ module.exports = {
                 error: "Erro inesperado, tente novamente"
             })
         }
-    }
+    } 
 }
