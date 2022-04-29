@@ -28,8 +28,11 @@ module.exports = {
     if (req.files.length == 0)
       return res.send("Please, send at least one image");
 
+    req.body.user_id = req.session.userId
+    
     let results = await Product.create(req.body)
     const productId = results.rows[0].id
+    
     const filesPromise = req.files.map(file => File.create({ ...file, product_id: productId }))
     await Promise.all(filesPromise)
     return res.redirect(`/products/${productId}/edit`)
