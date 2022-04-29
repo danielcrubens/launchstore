@@ -1,24 +1,17 @@
-const db = require("../../config/db")
+/* const db = require("../../config/db")
 const { hash } = require('bcryptjs')
 const fs = require('fs')
 const Product = require('../models/Product')
+const Bse = require('./Base')
+const { init } = require("browser-sync") */
+const Base = require("./Base")
 
-module.exports = {
-    async findOne(filters) {
-        let query = "SELECT * FROM users"
+Base.init({table: 'users'})
 
-        Object.keys(filters).map(key => {
-            query = `${query}
-         ${key}
-         `
-            Object.keys(filters[key]).map(field => {
-                query = `${query} ${field} = '${filters[key][field]}'`
-            })
-        })
-        const results = await db.query(query)
-        return results.rows[0]
-    },
-    async create(data) {
+const User ={
+ 
+    ...Base,
+ /*    async create(data) {
         try {
             const query = `
             INSERT INTO users (
@@ -92,5 +85,7 @@ module.exports = {
             })
         })
 
-    }
+    } */
 }
+console.log(User)
+module.exports = User
