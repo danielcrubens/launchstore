@@ -1,21 +1,13 @@
-const db = require("../../config/db");
-const fs = require("fs");
-module.exports = {
-  create({ filename, path, product_id }) {
-    const query = `
-        INSERT INTO files (
-            name,
-            path,
-            product_id
-        ) VALUES ($1, $2, $3)
-        RETURNING id
-    `
 
-    const values = [filename, path, product_id]
+const Base = require("./Base")
 
-    return db.query(query, values)
-  },
-  async delete(id) {
+Base.init({table: 'files'})
+
+module.exports ={
+ 
+    ...Base,
+}
+ /*  async delete(id) {
 try {
   const result = await db.query(`SELECT * FROM files WHERE id = $1`, [id])
   const file = result.rows[0]
@@ -28,5 +20,6 @@ try {
 } catch (err) {
   console.error(err)
 }
-  }
-}
+  } */
+
+

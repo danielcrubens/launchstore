@@ -1,17 +1,17 @@
-/* const db = require("../../config/db")
-const { hash } = require('bcryptjs')
-const fs = require('fs')
-const Product = require('../models/Product')
-const Bse = require('./Base')
-const { init } = require("browser-sync") */
 const Base = require("./Base")
 
 Base.init({table: 'users'})
 
-const User ={
+module.exports  ={
  
     ...Base,
- /*    async create(data) {
+ 
+}
+
+
+
+
+/*    async create(data) {
         try {
             const query = `
             INSERT INTO users (
@@ -86,6 +86,3 @@ const User ={
         })
 
     } */
-}
-console.log(User)
-module.exports = User
