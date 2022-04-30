@@ -1,16 +1,18 @@
 const db = require('../../config/db')
 
-function find (filters, table){
+function find(filters, table) {
     let query = `SELECT * FROM ${table}`
-
-    Object.keys(filters).map(key => {
-        query += `${key}`
-        Object.keys(filters[key]).map(field => {
-            query += `${field} = '${filters[key][field]}'`
+    if (filters) {
+        Object.keys(filters).map(key => {
+            query += `${key}`
+            Object.keys(filters[key]).map(field => {
+                query += `${field} = '${filters[key][field]}'`
+            })
         })
-    })
+    }
+
     return db.query(query)
-  
+
 }
 const Base = {
     init({ table }) {
@@ -20,16 +22,16 @@ const Base = {
         return this
     },
     async find(id) {
-        const results = await find({where:{id}}, this.table)
-        return results.rows[0] 
+        const results = await find({ where: { id } }, this.table)
+        return results.rows[0]
     },
     async findOne(filters) {
         const results = await find(filters, this.table)
-        return results.rows[0] 
+        return results.rows[0]
     },
     async findAll(filters) {
         const results = await find(filters, this.table)
-        return results.rows 
+        return results.rows
     },
     async create(fields) {
         try {
@@ -52,15 +54,15 @@ const Base = {
             console.error(error);
         }
     },
-     update(id, fields) {
+    update(id, fields) {
         try {
             let update = []
-            Object.keys(fields).map(key=> {
+            Object.keys(fields).map(key => {
 
                 //category_id=($1)
                 const line = `${key}= '${fields[key]}'`
                 update.push(line)
-          })
+            })
 
             let query = `UPDATE ${this.table} SET
             ${update.join(',')}WHERE id = ${id}
@@ -72,6 +74,6 @@ const Base = {
     },
     delete(id) {
         return db.query(`DELETE FROM ${this.table} WHERE id = $1`, [id])
-      },
+    },
 }
 module.exports = Base
