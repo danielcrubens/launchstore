@@ -1,34 +1,59 @@
+const { unlinkSync } = require('fs');
+const { hash } = require('bcryptjs');
 const User = require('../models/User')
-const { formatCep, formatCpfCnpj } = require('../../lib/utils')
+const Product = require('../models/Product')
+const { formatCep, formatCpfCnpj } = require('../../lib/utils');
 
 module.exports = {
     registerForm(req, res) {
         return res.render("user/register")
     },
     async show(req, res) {
-        const { user } = req;
-        user.cpf_cnpj = formatCpfCnpj(user.cpf_cnpj)
-        user.cep = formatCep(user.cep)
+        try {
+            const { user } = req;
+            user.cpf_cnpj = formatCpfCnpj(user.cpf_cnpj)
+            user.cep = formatCep(user.cep)
 
-        return res.render('user/index', { user })
+            return res.render('user/index', { user })
+        } catch (error) {
+            console.error(error);
+        }
+
     },
     async post(req, res) {
-        const userId = await User.create(req.body)
-        req.session.userId = userId
+        try {
+            let { name, email, password, cpf_cnpj, cep, address } = req.body
+            password = await hash(password, 8)
+            cpf_cnpj = cpf_cnpj.replace(/\D/g, "")
+            cep = cep.replace(/\D/g, "")
 
-        return res.redirect('/users')
+            const userId = await User.create({
+                name,
+                email,
+                password,
+                cpf_cnpj,
+                cep,
+                address
+            })
+            req.session.userId = userId
+
+            return res.redirect('/users')
+        } catch (error) {
+            console.error(error);
+        }
 
 
-    }, 
+
+    },
     async update(req, res) {
-        try{
+        try {
             const { user } = req
-            let {name, email, cpf_cnpj, cep, address} = req.body
+            let { name, email, cpf_cnpj, cep, address } = req.body
 
-            cpf_cnpj = cpf_cnpj.replace(/\D/g,"")
-            cep = cep.replace(/\D/g,"")
+            cpf_cnpj = cpf_cnpj.replace(/\D/g, "")
+            cep = cep.replace(/\D/g, "")
 
-            await User.update(user.id,{
+            await User.update(user.id, {
                 name,
                 email,
                 cpf_cnpj,
@@ -36,34 +61,55 @@ module.exports = {
                 address
             })
 
-            return res.render("user/index",{
-                user:req.body,
-                success:"Conta atualizada com sucesso!"
+            return res.render("user/index", {
+                user: req.body,
+                success: "Conta atualizada com sucesso!"
             })
-        }catch(err){
+        } catch (err) {
             console.error(err)
-            return res.render("user/index",{
-                error:"Algum erro aconteceu!"
+            return res.render("user/index", {
+                error: "Algum erro aconteceu!"
 
             })
         }
     },
-    async delete (req, res) {
-        try{
+    async delete(req, res) {
+        try {
+            const product = await Product.findAll({ where: { user_id: req.body.id } })
+       
+
+            //dos produtos, pegar todas as imagens
+            const allFilesPromise = products.map(product =>
+                Product.files(product.id))
+            let promiseResults = await Promise.all(allFilesPromise)
+
+            //rodar a remoção do usuário
             await User.delete(req.body.id)
             req.session.destroy()
 
-            return res.render("session/login",{
-                success:"Conta deletada com sucesso!"
+            //remover as imagens da pasta public
+            promiseResults.map(results => {
+                results.rows.map(file => {
+                    try {
+                        unlinkSync(file.path)
+                    } catch (err) {
+                        console.error(err)
+                    }
+
+                })
             })
-        }catch(err){
+
+            return res.render("session/login", {
+                success: "Conta deletada com sucesso!"
+            })
+        } catch (err) {
             console.error(err)
-            return res.render("user/index",{
+            return res.render("user/index", {
                 user: req.body,
-                error:"Erro ao tentar deletar sua conta!"
+                error: "Erro ao tentar deletar sua conta!"
             })
         }
-       
+
     }
 
 }
