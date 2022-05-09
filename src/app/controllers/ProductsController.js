@@ -1,3 +1,4 @@
+const {unlinkSync} = require('fs')
 const Category = require("../models/Category")
 const Product = require("../models/Product")
 const File = require("../models/File")
@@ -43,7 +44,10 @@ module.exports = {
       })
 
 
-      const filesPromise = req.files.map(file => File.create({ ...file, product_id }))
+      const filesPromise = req.files.map(file => File.create({
+        name: file.name,
+        path: file.path, 
+        product_id }))
       await Promise.all(filesPromise)
       return res.redirect(`/products/${product_id}/edit`)
     } catch (error) {
@@ -158,7 +162,17 @@ module.exports = {
   },
 
   async delete(req, res) {
-    await Product.delete(req.body.id)
+     const files = await Product.files(req.body.id)
+     await Product.delete(req.body.id)
+
+     files.map(file => {
+      try {
+          unlinkSync(file.path)
+      } catch (err) {
+          console.error(err)
+      }
+
+  })
     return res.redirect("products/create")
-  },
+  }
 }

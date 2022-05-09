@@ -6,12 +6,12 @@ const Product = require('./src/app/models/Product');
 const File = require('./src/app/models/File');
 
 let usersId = [];
-let totalProducts = 10;
 let totalUsers = 3;
+let totalProducts = 10;
 
 async function createUsers() {
   const users = [];
-  const password = await hash('123456', 8);
+  const password = await hash('1111', 8);
 
   while (users.length < totalUsers) {
     users.push({

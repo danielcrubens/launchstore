@@ -75,7 +75,7 @@ module.exports = {
     },
     async delete(req, res) {
         try {
-            const product = await Product.findAll({ where: { user_id: req.body.id } })
+            const products = await Product.findAll({ where: { user_id: req.body.id } })
        
 
             //dos produtos, pegar todas as imagens
@@ -88,8 +88,8 @@ module.exports = {
             req.session.destroy()
 
             //remover as imagens da pasta public
-            promiseResults.map(results => {
-                results.rows.map(file => {
+            promiseResults.map(files => {
+                files.map(file => {
                     try {
                         unlinkSync(file.path)
                     } catch (err) {
