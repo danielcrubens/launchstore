@@ -73,7 +73,7 @@
       type="text"
       name="price"
       placeholder="Preço do Produto"
-      value="{{product.formatedPrice}}"
+      value="{{product.formattedPrice}}"
       onkeydown="Mask.apply(this, 'formatBRL')"
     >
   </div>
@@ -81,7 +81,7 @@
       <input
         type="hidden"
         name="old_price"
-        value="{{product.formatedOldPrice}}"
+        value="{{product.formattedOldPrice}}"
       >
     {% endif %}
 </div>
