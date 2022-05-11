@@ -7,7 +7,7 @@
             </div>
         </a>
          <form class="search" method="GET" action="/products/search">
-            <input type="text" name="filter" placeholder="Buscar por Produtos" {% if search.term %} value={{serach.term}} {% endif%}>
+            <input type="text" name="filter" placeholder="Buscar por Produtos" {% if search.term %} value="{{serach.term}}"   {% endif%}>
         </form>
             <nav class="primary">
                 <ul>
