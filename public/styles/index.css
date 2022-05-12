@@ -487,10 +487,7 @@ search-products nav ul li a:hover{
     color: black;
     font-weight:bold ;
 }
-/* USER REGISTER */
-.user-register.container.form{
-max-width: 500px;
-} 
+
 
 /* VALIDATE ERRORS */
 .input .error{
