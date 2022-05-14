@@ -2,10 +2,10 @@
 {% import "parts/card.njk" as card %}
 
 {% block content %}
-  {% if (cart.items) and (cart.items.length < 1) %}
+  {%if (cart.items) and (cart.items.length < 1)%}
     {% call card.render("", "cart-empty container") %}
     <p>Seu carrinho está vazio</p>
-    <a href="/products/search" class="btn">Comprar agora</a>
+    <a href="/products/search" class="button">Comprar agora</a>
     {% endcall %}
   {% else%}
     {% call card.render("Carrinho", "cart container") %}

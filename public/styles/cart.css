@@ -88,10 +88,10 @@
   margin-top: 16px;
   width: 100%;
 }
-.cart .btn.shop {
+.cart .button.shop {
   width: 240px;
 }
-.cart .btn.order {
+.cart .button.order {
   background: var(--azul);
 }
 .cart-empty {
@@ -101,7 +101,7 @@
   font-size: 18px;
   color: #ccd6f6;
 }
-.cart-empty .btn {
+.cart-empty .button {
   margin: 16px auto;
   width: 240px;
 }
