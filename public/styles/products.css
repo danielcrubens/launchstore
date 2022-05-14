@@ -126,3 +126,10 @@ transition: 400ms;
 .product-create{
     max-width: 700px;
 }
+.product-single .unavailable{
+    font-size: 14px;
+    color: var(--cinza2);
+    font-weight: bold;
+    background: #eee;
+    padding: 8px 16px;
+}
