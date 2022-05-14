@@ -15,8 +15,10 @@ module.exports = {
     }
   },
   async addOne(req, res) {
+    //pegar o id do produto e o produto
     const { id } = req.params;
     const product = await loadProductsService.load('product', { where: { id } });
+    //pegar o carrinho da senssão
     let { cart } = req.session;
 
     cart = Cart.init(cart).addOne(product);
