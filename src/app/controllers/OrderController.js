@@ -25,6 +25,12 @@ const email = (seller, product, buyer) => `
 
 
 module.exports = {
+    async index(req, res) {
+        const orders = await LoadOrderService.load('orders', {
+          where: { buyer_id: req.session.userId }
+        });
+        return res.render('orders/index', { orders });
+      },
     async post(req, res) {
         try {
             const cart = Cart.init(req.session.cart);
