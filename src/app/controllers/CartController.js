@@ -28,11 +28,14 @@ module.exports = {
 
   },
   removeOne(req, res) {
+    //pegar o id do produto
     const { id } = req.params;
+        //pegar o carrinho da sessãp
     let { cart } = req.session;
-
+    //se não tiver carrinho só retornar
     if (!cart) return res.redirect('/cart');
 
+    //iniciar o carrinho
     cart = Cart.init(cart).removeOne(id);
     req.session.cart = cart;
 
