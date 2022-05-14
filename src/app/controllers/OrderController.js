@@ -1,8 +1,11 @@
-const LoadProductService = require("../services/LoadProductService")
 const User = require('../models/User')
 const Order = require('../models/Order')
+const LoadProductService = require('../services/LoadProductService')
+const LoadOrderService = require('../services/LoadOrderService')
+
 const mailer = require('../../lib/mailer')
 const Cart = require('../../lib/cart')
+
 
 
 
@@ -30,6 +33,12 @@ module.exports = {
           where: { buyer_id: req.session.userId }
         });
         return res.render('orders/index', { orders });
+      },
+      async sales(req, res) {
+        const sales = await LoadOrderService.load('orders', {
+          where: { seller_id: req.session.userId }
+        });
+        return res.render('orders/sales', { sales });
       },
     async post(req, res) {
         try {
