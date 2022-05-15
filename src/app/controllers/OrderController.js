@@ -28,73 +28,94 @@ const email = (seller, product, buyer) => `
 
 
 module.exports = {
-    async index(req, res) {
-        const orders = await LoadOrderService.load('orders', {
-          where: { buyer_id: req.session.userId }
+  async index(req, res) {
+    const orders = await LoadOrderService.load('orders', {
+      where: { buyer_id: req.session.userId }
+    });
+    return res.render('orders/index', { orders });
+  },
+  async sales(req, res) {
+    const sales = await LoadOrderService.load('orders', {
+      where: { seller_id: req.session.userId }
+    });
+    return res.render('orders/sales', { sales });
+  },
+  async show(req, res) {
+    const order = await LoadOrderService.load('order', {
+      where: { id: req.params.id }
+    });
+    return res.render('orders/details', { order });
+  },
+  async post(req, res) {
+    try {
+      const cart = Cart.init(req.session.cart);
+      const buyer_id = req.session.userId;
+
+      const filteredItems = cart.items.filter(item =>
+        item.product.user_id != buyer_id
+      );
+
+      const createOrdersPromise = filteredItems.map(async item => {
+        let { product, price: total, quantity } = item;
+        const { price, id: product_id, user_id: seller_id } = product;
+        const status = 'open';
+        const order = await Order.create({
+          seller_id,
+          buyer_id,
+          product_id,
+          price,
+          total,
+          quantity,
+          status
         });
-        return res.render('orders/index', { orders });
-      },
-      async sales(req, res) {
-        const sales = await LoadOrderService.load('orders', {
-          where: { seller_id: req.session.userId }
+
+        product = await LoadProductService.load('product', {
+          where: { id: product.id }
         });
-        return res.render('orders/sales', { sales });
-      },
-      async show(req, res) {
-        const order = await LoadOrderService.load('order', {
-          where: { id: req.params.id }
+
+        const seller = await User.findOne({ where: { id: seller_id } });
+        const buyer = await User.findOne({ where: { id: buyer_id } });
+
+        await mailer.sendMail({
+          to: seller.email,
+          from: 'no-reply@launhstore.com.br',
+          subject: 'Novo pedido de compra',
+          html: email(seller, product, buyer)
         });
-        return res.render('orders/details', { order });
-      },
-    async post(req, res) {
-        try {
-            const cart = Cart.init(req.session.cart);
-            const buyer_id = req.session.userId;
-      
-            const filteredItems = cart.items.filter(item =>
-              item.product.user_id != buyer_id
-            );
-      
-            const createOrdersPromise = filteredItems.map(async item => {
-              let { product, price: total, quantity } = item;
-              const { price, id: product_id, user_id: seller_id } = product;
-              const status = 'open';
-              const order = await Order.create({
-                seller_id,
-                buyer_id,
-                product_id,
-                price,
-                total,
-                quantity,
-                status
-              });
-      
-              product = await LoadProductService.load('product', {
-                where: { id: product.id }
-              });
-      
-              const seller = await User.findOne({ where: { id: seller_id } });
-              const buyer = await User.findOne({ where: { id: buyer_id } });
-      
-              await mailer.sendMail({
-                to: seller.email,
-                from: 'no-reply@launhstore.com.br',
-                subject: 'Novo pedido de compra',
-                html: email(seller, product, buyer)
-              });
-      
-              return order;
-            });
-      
-            await Promise.all(createOrdersPromise);
-      
-            delete req.session.cart;
-            Cart.init();
-      
-            return res.render('orders/success');
-          } catch (err) {
-            console.error(err);
-            return res.render('orders/error');
-          }
+
+        return order;
+      });
+
+      await Promise.all(createOrdersPromise);
+
+      delete req.session.cart;
+      Cart.init();
+
+      return res.render('orders/success');
+    } catch (err) {
+      console.error(err);
+      return res.render('orders/error');
     }
+  },
+  async update(req, res) {
+    const { id, action } = req.params;
+    const acceptedActions = ['close', 'cancel'];
+
+    if (!acceptedActions.includes(action)) return res.send('Can\'t do this action!');
+
+    const order = await Order.findOne({ where: { id } });
+
+    if (!order) return res.send('Order not found!');
+    if (order.status != 'open') return res.send('Can\'t do this action!');
+
+    const statuses = {
+      close: 'sold',
+      cancel: 'canceled'
+    };
+
+    order.status = statuses[action];
+    await Order.update(id, { status: order.status });
+
+    return res.redirect('/orders/sales');
+  }
 }
