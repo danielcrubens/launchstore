@@ -1,0 +1,149 @@
+/* =========== ==== MENU ==== =========== */
+.cart {
+	.header {
+		display: grid;
+		grid-template-columns: 1fr 100px 100px 30px;
+		gap: 16px;
+		margin-bottom: 16px;
+		font-size: 14px;
+		font-weight: 700;
+		letter-spacing: 0.2px;
+		text-transform: uppercase;
+		color: var(--grey2);
+		p {
+			&:nth-child(2) {
+				text-align: right;
+			}
+			&:nth-child(3) {
+				text-align: center;
+			}
+		}
+	}
+	.item {
+		display: grid;
+		grid-template-columns: 1fr 100px 100px 30px;
+		align-items: center;
+		gap: 16px;
+		padding: 16px 0;
+		border-bottom: 1px solid var(--grey1);
+		transition: 0.2s;
+		&:hover {
+			background: rgba(255, 255, 255, 0.02);
+			border-radius: 8px;
+		}
+		>a {
+			display: flex;
+			align-items: center;
+			margin-left: 8px;
+			color: var(--grey2);
+		}
+	}
+	img {
+		margin-right: 16px;
+		width: 50px;
+		height: 50px;
+		object-fit: contain;
+		border-radius: 4px;
+		box-shadow: 2px 2px 4px -2px rgba(0, 0, 0, 0.4);
+	}
+	.price {
+		text-align: right;
+		color:var(--blue1);
+	}
+	.quantity-control {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		color: var(--grey2);
+		button {
+			color: #ccc;
+			border: none;
+		}
+	}
+	.quantity {
+		margin: 0 8px;
+	}
+	.add {
+		cursor: pointer;
+		background-color: transparent;
+	}
+	.remove {
+		cursor: pointer;
+		background-color: transparent;
+	}
+	.delete {
+		cursor: pointer;
+		background-color: transparent;
+		color: var(--red);
+	}
+	.total {
+		margin-top: 8px;
+		text-align: right;
+		p {
+			margin-bottom: 4px;
+			font-size: 12px;
+			font-weight: 700;
+			text-transform: uppercase;
+			color: var(--white1);
+		}
+		span {
+			font-size: 22px;
+			font-weight: 900;
+			color:var(--blue1);
+		}
+	}
+	.action {
+		display: flex;
+		justify-content: space-between;
+		margin-top: 16px;
+		width: 100%;
+	}
+	.button.shop {
+		width: 240px;
+	}
+	.button.order {
+		background: var(--success);
+	}
+}
+.cart-empty {
+	text-align: center;
+	p {
+		font-size: 18px;
+		color: var(--blue1);
+	}
+	.button {
+		margin: 16px auto;
+		width: 240px;
+	}
+}
+header {
+	div.container {
+		grid-template-columns: 220px auto 315px;
+		gap: 8px;
+	}
+}
+li.cart {
+	a {
+		position: relative;
+		span {
+			position: absolute;
+			top: 28px;
+			right: 1px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			width: 20px;
+			height: 20px;
+			font-size: 12px;
+			font-weight: 700;
+			background-color: var(--red);
+			border-radius: 50%;
+		}
+		&:hover {
+			span {
+				color:var(--grey1);
+				background-color:--var(--blue1);
+			}
+		}
+	}
+}
