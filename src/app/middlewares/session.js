@@ -1,6 +1,3 @@
-const req = require("express/lib/request")
-const res = require("express/lib/response")
-
 function onlyUsers (req, res,next){
 if(!req.session.userId)
 return res.redirect('/users/login')

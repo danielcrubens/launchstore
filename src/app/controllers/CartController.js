@@ -1,12 +1,12 @@
 const Cart = require('../../lib/cart');
-const loadProductsService = require('../services/LoadProductService')
+const loadProductsService = require('../services/LoadProductService');
 
 module.exports = {
   async index(req, res) {
     try {
       let { cart } = req.session;
 
-      // gerenciador de carrinho
+      // cart manager
       cart = Cart.init(cart);
 
       return res.render('cart/index', { cart });
@@ -15,10 +15,8 @@ module.exports = {
     }
   },
   async addOne(req, res) {
-    //pegar o id do produto e o produto
     const { id } = req.params;
     const product = await loadProductsService.load('product', { where: { id } });
-    //pegar o carrinho da senssão
     let { cart } = req.session;
 
     cart = Cart.init(cart).addOne(product);
@@ -28,14 +26,11 @@ module.exports = {
 
   },
   removeOne(req, res) {
-    //pegar o id do produto
     const { id } = req.params;
-        //pegar o carrinho da sessãp
     let { cart } = req.session;
-    //se não tiver carrinho só retornar
+
     if (!cart) return res.redirect('/cart');
 
-    //iniciar o carrinho
     cart = Cart.init(cart).removeOne(id);
     req.session.cart = cart;
 

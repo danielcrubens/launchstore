@@ -15,8 +15,8 @@ async function format(product) {
   const files = await getImages(product.id);
   product.img = files[0].src;
   product.files = files;
-  product.formattedOldPrice = formatPrice(product.old_price);
-  product.formattedPrice = formatPrice(product.price);
+  product.formatedOldPrice = formatPrice(product.old_price);
+  product.formatedPrice = formatPrice(product.price);
 
   const { minutes, hour, day, month } = date(product.updated_at);
   product.published = {
@@ -58,7 +58,7 @@ const LoadService = {
       console.error(error);
     }
   },
-  format
+  format,
 };
 
 module.exports = LoadService;

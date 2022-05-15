@@ -22,7 +22,7 @@
                             Minha Conta
                         </a>
                         {% if session.userId %}
-                            <ul class="submenu">
+                            <ul class="dropdown">
                                 <li>
                                     <a href="/users">Minha Conta</a>
                                 </li>
@@ -33,7 +33,7 @@
                                     <a href="/orders">Meus pedidos</a>
                                 </li>
                                     <li>
-                                    <a href="/orders/sales">Meus vendas</a>
+                                    <a href="/orders/sales">Minhas  vendas</a>
                                 </li>
                                 <li>
                                     <form action="/users/logout" method="POST">
