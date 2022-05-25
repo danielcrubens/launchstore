@@ -12,9 +12,9 @@ section.login.container {
 	ul {
 		li {
 			a {
-				color: var(--grey);
+				color: $grey;
 				&:hover {
-					color: var(--black);
+					color: black;
 					font-weight: bold;
 				}
 			}

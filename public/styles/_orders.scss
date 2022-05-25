@@ -12,7 +12,7 @@
 		height: 200px;
 	}
 	a {
-		color: var(--blue);
+		color: $blue;
 	}
 }
 .order-error {
@@ -21,7 +21,7 @@
 	text-align: center;
 	margin: auto;
 	a {
-		color: var(--red);
+		color: $red;
 	}
 	.error-lottie {
 		height: 50px;
@@ -51,15 +51,15 @@
 		}
 		.title {
 			margin-bottom: 4px;
-			color: var(--grey2);
+			color: $grey2;
 		}
 		.price {
 			margin-bottom: 4px;
-			color: var(--grey2);
+			color: $grey2;
 		}
 		.updated_at {
 			margin-bottom: 4px;
-			color: var(--grey2);
+			color: $grey2;
 			margin-top: auto;
 			margin-bottom: 0;
 			font-size: 14px;

@@ -16,8 +16,8 @@
 	animation: hidemessage 400ms 5s ease-out forwards;
 }
 .messages.error {
-	background: var(--red);
+	background: $red;
 }
 .messages.success {
-	background: var(--success);
+	background: $success;
 }
